@@ -1,0 +1,44 @@
+//fsfsdf//
+PROGRAM Test
+	VAR Prenom || Seif || Yass  : INTEGER£
+	LET Nom INTEGER = 20£
+	LET Yasser STRING="hello yasser"£
+	VAR C:CHAR£
+	LET Ss CHAR  = 'a'£
+	VAR Tab [100] : [FLOAT]£
+BEGIN
+	FOR(Seif:1:Seif==0)
+		Seif = 10£
+	END_FOR
+	IF(Seif <<>> 2):
+	{ 
+		IF(Seif <<>> 2):
+		{ 
+			IF(Seif <<>> 2):
+			{ 
+				Seif = 22+33£
+				C='y'£
+	  			RETURN(Seif)£
+			}
+			ENDIF
+			Seif = 22+33£
+	  		Seif = 22+33£RETURN(Seif)£
+		}
+		ENDIF
+		Seif = 22+33£
+		//Seif = 22+33£//
+	  	RETURN(Seif)£
+	}
+	ELSE:
+	{
+		RETURN(9)£
+	}
+	ENDIF
+	Seif = (((-4)+5))£
+	GET("#":@Seif)£
+	GET("$":@Seif)£
+	GET("%":@Seif)£
+	GET("&":@Seif)£
+	SHOW("c'est un entier $":Seif)£
+	Seif = 10.9£//fsfsdf//
+END
