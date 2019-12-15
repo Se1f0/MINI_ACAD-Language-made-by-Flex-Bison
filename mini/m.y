@@ -16,6 +16,8 @@ int verifierDeclarationIDF(char IDF[]);
 int verifierTypeCompatible(char IDF1[],char IDF2[]);
 int verifierConst(char IDF[]);
 int verifierIndex(char IDF[],int index);
+int verifierTabOrVarOrConst(char IDF[]);
+int semantiqueDeAff(char IDF[],char IDF2[],int choix);
 %}
 %union {
 int ival;
@@ -305,21 +307,17 @@ int verifierIndex(char IDF[],int index)
         return 1;
     }
 }
-int VerifierTabOrVarOrConst(char IDF[])
+int verifierVarOrConst(char IDF[])
 {
     int i;
     for (i = 0;((i<1000)&&(tab[i].state==1))&&(strcmp(IDF,tab[i].name)!=0); i++);
-    if ((i<1000)&&(strcmp(IDF,tab[i].name)) && (strcmp(tab[i].type,"VAR-TAB"))== 0)
-    {
-        return 2;
-    }
-    else if ((i<1000)&&(strcmp(IDF,tab[i].name)) && (strcmp(tab[i].type,"CONST"))== 0)
+    if ((i<1000)&&(strcmp(IDF,tab[i].name)) && (strcmp(tab[i].type,"CONST"))== 0)
     {
         return 1;
     }
     return 0;
 }
-int semantiqueDeAff(char IDF[],char IDF2[],int choix,int index)
+int semantiqueDeAff(char IDF[],char IDF2[],int choix)
 {
     int final = verifierDeclarationIDF(IDF);
     switch (choix)
@@ -329,9 +327,6 @@ int semantiqueDeAff(char IDF[],char IDF2[],int choix,int index)
         break;
     case 1: /* CONST */
         final = final + verifierConst(IDF);
-        break;
-    case 2: /* TAB */
-        final = final + verifierIndex(IDF,index);
         break;
     }
     if (final < 2)
