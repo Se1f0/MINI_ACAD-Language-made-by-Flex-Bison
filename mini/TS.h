@@ -125,7 +125,7 @@ void initialisation()
 void afficher()
 {
     int i;
-    printf("\n\nla table des IDF \n");
+    printf("\n\nla table des IDF\n");
     for(i = 0;i<1000;i++)
     {
         if(tab[i].state==1)
@@ -202,6 +202,292 @@ void afficher()
         {
             printf("Entite %s\t\t",tabs[i].name);
             printf("Type %s\n",tabs[i].type);
+        }
+    }
+}
+void show1(char myString[],char IDF[])
+{
+    int i,deb = 0;
+    if(strcmp(IDF,"")!=0)
+    {
+        for (i = 0;((i<1000)&&(tab[i].state==1))&&(strcmp(IDF,tab[i].name)!=0); i++);
+        if ((i<1000)&&(strcmp(IDF,tab[i].name)==0))
+        {
+            if (!strcmp(tab[i].typeSynt,"INTEGER"))
+            {
+                for(int j = 0;j<strlen(myString)-1;j++)
+                {
+                    if(myString[j]=='\\')
+                    {
+                        if (myString[j+1]=='n')
+                        {
+                            printf("\n");
+                            j++;
+                        }
+                        else if (myString[j+1]=='t')
+                        {        
+                            printf("\t");
+                            j++;
+                        }
+                        else if (myString[j+1]=='%')
+                        {        
+                            printf("%");
+                            j++;
+                        }
+                        else if (myString[j+1]=='$')
+                        {        
+                            printf("$");
+                            j++;
+                        }
+                        else if (myString[j+1]=='#')
+                        {        
+                            printf("#");
+                            j++;
+                        }
+                        else if (myString[j+1]=='&')
+                        {        
+                            printf("&");
+                            j++;
+                        }
+                        else
+                            printf("\\");
+                    }
+                    else if (myString[j]=='$')
+                        printf("%d",tab[i].val.ival);
+                    else if (myString[j]!='#' && myString[j]!='&' && myString[j]!='%')
+                        printf("%c",myString[j]);
+                }
+                if (strlen(myString)>=2)
+                {
+                    if (myString[strlen(myString)-2]!='\\')
+                    {
+                        if (myString[strlen(myString)-1]=='$')
+                            printf("%d",tab[i].val.ival);
+                        else if (myString[strlen(myString)-1]!='#' && myString[strlen(myString)-1]!='&' && myString[strlen(myString)-1]!='%')
+                            printf("%c",myString[strlen(myString)-1]);
+                    }
+
+                }
+                
+            }
+            if (!strcmp(tab[i].typeSynt,"FLOAT"))
+            {
+                for(int j = 0;j<strlen(myString)-1;j++)
+                {
+                    if(myString[j]=='\\')
+                    {
+                        if (myString[j+1]=='n')
+                        {
+                            printf("\n");
+                            j++;
+                        }
+                        else if (myString[j+1]=='t')
+                        {        
+                            printf("\t");
+                            j++;
+                        }
+                        else if (myString[j+1]=='%')
+                        {        
+                            printf("%");
+                            j++;
+                        }
+                        else if (myString[j+1]=='$')
+                        {        
+                            printf("$");
+                            j++;
+                        }
+                        else if (myString[j+1]=='#')
+                        {        
+                            printf("#");
+                            j++;
+                        }
+                        else if (myString[j+1]=='&')
+                        {        
+                            printf("&");
+                            j++;
+                        }
+                        else
+                            printf("\\");
+                    }
+                    else if (myString[j]=='%')
+                        printf("%f",tab[i].val.fval);
+                    else if (myString[j]!='#' && myString[j]!='&' && myString[j]!='$')
+                        printf("%c",myString[j]);
+                }
+                if (strlen(myString)>=2)
+                {
+                    if (myString[strlen(myString)-2]!='\\')
+                    {
+                        if (myString[strlen(myString)-1]=='%')
+                            printf("%f",tab[i].val.fval);
+                        else if (myString[strlen(myString)-1]!='#' && myString[strlen(myString)-1]!='&' && myString[strlen(myString)-1]!='$')
+                            printf("%c",myString[strlen(myString)-1]);
+                    }
+                }
+            }
+            if (!strcmp(tab[i].typeSynt,"CHAR"))
+            {
+                for(int j = 0;j<strlen(myString)-1;j++)
+                {
+                    if(myString[j]=='\\')
+                    {
+                        if (myString[j+1]=='n')
+                        {
+                            printf("\n");
+                            j++;
+                        }
+                        else if (myString[j+1]=='t')
+                        {        
+                            printf("\t");
+                            j++;
+                        }
+                        else if (myString[j+1]=='%')
+                        {        
+                            printf("%");
+                            j++;
+                        }
+                        else if (myString[j+1]=='$')
+                        {        
+                            printf("$");
+                            j++;
+                        }
+                        else if (myString[j+1]=='#')
+                        {        
+                            printf("#");
+                            j++;
+                        }
+                        else if (myString[j+1]=='&')
+                        {        
+                            printf("&");
+                            j++;
+                        }
+                        else
+                            printf("\\");
+                    }
+                    else if (myString[j]=='&')
+                        printf("%c",tab[i].val.cval);
+                   else if (myString[j]!='#' && myString[j]!='%' && myString[j]!='$')
+                        printf("%c",myString[j]);
+                }
+                if (strlen(myString)>=2)
+                {
+                    if (myString[strlen(myString)-2]!='\\')
+                    {
+                        if (myString[strlen(myString)-1]=='&')
+                            printf("%c",tab[i].val.cval);
+                        else if (myString[strlen(myString)-1]!='#' && myString[strlen(myString)-1]!='%' && myString[strlen(myString)-1]!='$')
+                            printf("%c",myString[strlen(myString)-1]);
+                    }
+                }
+            }
+            if (!strcmp(tab[i].typeSynt,"STRING"))
+            {
+                for(int j = 0;j<strlen(myString)-1;j++)
+                {
+                    if(myString[j]=='\\')
+                    {
+                        if (myString[j+1]=='n')
+                        {
+                            printf("\n");
+                            j++;
+                        }
+                        else if (myString[j+1]=='t')
+                        {        
+                            printf("\t");
+                            j++;
+                        }
+                        else if (myString[j+1]=='%')
+                        {        
+                            printf("%");
+                            j++;
+                        }
+                        else if (myString[j+1]=='$')
+                        {        
+                            printf("$");
+                            j++;
+                        }
+                        else if (myString[j+1]=='#')
+                        {        
+                            printf("#");
+                            j++;
+                        }
+                        else if (myString[j+1]=='&')
+                        {        
+                            printf("&");
+                            j++;
+                        }
+                        else
+                            printf("\\");
+                    }
+                    else if (myString[j]=='#')
+                        printf("%s",tab[i].val.sval);
+                    else if (myString[j]!='&' && myString[j]!='%' && myString[j]!='$')
+                        printf("%c",myString[j]);
+                }
+                if (strlen(myString)>=2)
+                {
+                    if (myString[strlen(myString)-2]!='\\')
+                    {
+                        if (myString[strlen(myString)-1]=='#')
+                            printf("%s",tab[i].val.sval);
+                        else if (myString[strlen(myString)-1]!='&' && myString[strlen(myString)-1]!='%' && myString[strlen(myString)-1]!='$')
+                            printf("%c",myString[strlen(myString)-1]);
+                    }
+                }
+            }
+        }
+    }
+    else
+    {
+        for(i = 0;i<strlen(myString)-1;i++)
+        {
+            if(myString[i]=='\\')
+            {
+                if (myString[i+1]=='n')
+                {
+                    printf("\n");
+                    i++;
+                }
+                else if (myString[i+1]=='t')
+                {        
+                    printf("\t");
+                    i++;
+                }
+                else if (myString[i+1]=='%')
+                {        
+                    printf("%");
+                    i++;
+                }
+                else if (myString[i+1]=='$')
+                {        
+                    printf("$");
+                    i++;
+                }
+                else if (myString[i+1]=='#')
+                {        
+                    printf("#");
+                    i++;
+                }
+                else if (myString[i+1]=='&')
+                {        
+                    printf("&");
+                    i++;
+                }
+                else
+                    printf("\\");
+            }
+            else
+                printf("%c",myString[i]);
+        }
+        if (strlen(myString)>=2)
+        {
+            if (myString[strlen(myString)-2]!='\\')
+            {
+                if(myString[strlen(myString)-1]!= '#' && myString[strlen(myString)-1]!='&' && myString[strlen(myString)-1]!='%' && myString[strlen(myString)-1]!='$')
+                {
+                    printf("%c",myString[strlen(myString)-1]);
+                }
+            }
         }
     }
 }
