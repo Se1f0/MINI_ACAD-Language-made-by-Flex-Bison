@@ -39,6 +39,8 @@ BEGIN
 	GET("$":@Seif)£
 	GET("%":@Seif)£
 	GET("&":@Seif)£
-	SHOW("c'est un entier $":Seif)£
+	SHOW("# c'est une chaine \n":Yasser)£
+	SHOW("$ c'est un entier\n":Nom)£
+	SHOW("hello\n world\nyasser\tbelhimer\n")£
 	Seif = 10.9£//fsfsdf//
 END
