@@ -7,7 +7,6 @@ typedef struct
     char cval;
     char* sval;
 }values;
-
 typedef struct
 {
     int state;
@@ -29,7 +28,6 @@ typedef struct
 element tab[1000];
 element tabc[1000];
 elt tabs[40],tabm[40];
-
 
 void inserer(char entite[], char type[],char typeSynt[], values val, int i, int y)
 {

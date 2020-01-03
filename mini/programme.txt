@@ -1,12 +1,14 @@
 //fsfsdf//
 PROGRAM Test
 	VAR Prenom || Seif || Yass  : INTEGER£
-	LET Nom INTEGER = 20£
+	LET Nom INTEGER = 800£
 	LET Yasser STRING="hello yasser"£
 	VAR C:CHAR£
 	LET Ss CHAR  = 'a'£
-	VAR Tab [100] : [FLOAT]£
+	VAR Tab [100] : [INTEGER]£
+	VAR Mat [100] : [FLOAT]£
 BEGIN
+	Tab[10] = Tab[20]£
 	FOR(Seif:1:Seif==0)
 		Seif = 10£
 	END_FOR
@@ -42,5 +44,5 @@ BEGIN
 	SHOW("# c'est une chaine \n":Yasser)£
 	SHOW("$ c'est un entier\n":Nom)£
 	SHOW("hello\n world\nyasser\tbelhimer\n")£
-	Seif = 10.9£//fsfsdf//
+	Seif = 10£//fsfsdf//
 END

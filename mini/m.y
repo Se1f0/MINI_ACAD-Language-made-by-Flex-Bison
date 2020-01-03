@@ -10,14 +10,16 @@ extern FILE* yyin;
 extern int yylineo;
 extern int Col;
 values val;
+int type,index;
 void yyerror(const char* s);
 void mise_ajour(char type[], char typeSynt[],int mode ,values val,char IDF[]);
 int verifierDeclarationIDF(char IDF[]);
-int verifierTypeCompatible(char IDF1[],char IDF2[]);
+int verifierTypeCompatible(char IDF1[],char IDF2[],int type);
 int verifierConst(char IDF[]);
 int verifierIndex(char IDF[],int index);
 int verifierTabOrVarOrConst(char IDF[]);
 int semantiqueDeAff(char IDF[],char IDF2[],int choix);
+int getVal(char IDF[]);
 %}
 %union {
 int ival;
@@ -39,6 +41,7 @@ char* sval;
 %token <sval>V_STRING
 %type <sval>LIST_IDF
 %type <sval>LIST_TYPE
+%type <ival>INDEX
 %left T_SUPSTRICT T_INFSTRICT T_SUPEGAL T_INFEGAL T_EGAL T_DIFF
 %left T_ADD T_SUB
 %left T_DIV T_MUL
@@ -64,10 +67,10 @@ LIST_TYPE:                  T_INTEGER
 |                           T_CHAR
 |                           T_STRING
 ;
-LIST_VAL:                   V_INTEGER   {val.ival = $1;}
-|                           V_FLOAT     {val.fval = $1;}
-|                           V_CHAR      {val.cval = $1;}
-|                           V_STRING    {val.sval = strdup($1);}
+LIST_VAL:                   V_INTEGER   {val.ival = $1;type = 0}
+|                           V_FLOAT     {val.fval = $1;type = 1}
+|                           V_CHAR      {val.cval = $1;type = 2}
+|                           V_STRING    {val.sval = strdup($1);type = 3}
 ;
 BLOCK:
 |                           AFFECTATION {printf("AFFECTATION correct\n");} BLOCK
@@ -92,14 +95,21 @@ OPERATION_ARITHMETIQUE:     OPERATION_ARITHMETIQUE T_ADD OPERATION_ARITHMETIQUE
 |                           OPERAND
 ;
 OPERAND:                    T_IDF {verifierDeclarationIDF($1);}
+|                           T_IDF T_CROCHET_OUV INDEX T_CROCHET_FER {verifierDeclarationIDF($1);}
 |                           V_INTEGER
 |                           V_FLOAT
 ;
-AFFECTATION:                T_IDF T_AFFECTATION EXPRESSION T_FINIST {verifierDeclarationIDF($1);if(verifierConst($1)) yyerror("const ERROR");}
-|                           T_IDF T_CROCHET_OUV V_INTEGER T_CROCHET_FER T_AFFECTATION T_IDF T_FINIST {verifierDeclarationIDF($1);verifierDeclarationIDF($6);if(verifierIndex($1,$3)==0) yyerror("out of bound");}
+AFFECTATION:                T_IDF T_AFFECTATION T_IDF T_FINIST {verifierDeclarationIDF($1);if(verifierConst($1)) yyerror("const ERROR");verifierDeclarationIDF($1);if(!verifierTypeCompatible($1,$3,-1)) yyerror("Type icompatible");}
+|                           T_IDF T_AFFECTATION LIST_VAL T_FINIST {verifierDeclarationIDF($1);if(verifierConst($1)) yyerror("const ERROR");if(!verifierTypeCompatible($1,"",type)) yyerror("Type incompatible");}
+|                           T_IDF T_AFFECTATION T_IDF T_CROCHET_OUV INDEX T_CROCHET_FER T_FINIST {verifierDeclarationIDF($1);if(verifierConst($1)) yyerror("const ERROR");if(!verifierTypeCompatible($1,$3,-1)) yyerror("Type icompatible");if(verifierIndex($3,index)==0) yyerror("Index error");}
+|                           T_IDF T_AFFECTATION OPERATION_ARITHMETIQUE T_FINIST {verifierDeclarationIDF($1);if(verifierConst($1)) yyerror("const ERROR");}
+|                           T_IDF T_CROCHET_OUV INDEX T_CROCHET_FER T_AFFECTATION T_IDF T_FINIST {verifierDeclarationIDF($1);verifierDeclarationIDF($6);if(verifierIndex($1,index)==0) yyerror("Index error");if(!verifierTypeCompatible($1,$6,-1)) yyerror("Type icompatible");}
+|                           T_IDF T_CROCHET_OUV INDEX T_CROCHET_FER T_AFFECTATION LIST_VAL T_FINIST {verifierDeclarationIDF($1);if(verifierIndex($1,index)==0) yyerror("Index error");if(!verifierTypeCompatible($1,"",type)) yyerror("Type incompatible");}
+|                           T_IDF T_CROCHET_OUV INDEX T_CROCHET_FER T_AFFECTATION T_IDF T_CROCHET_OUV INDEX T_CROCHET_FER T_FINIST {verifierDeclarationIDF($1);verifierDeclarationIDF($6);if(verifierIndex($1,index)==0 || verifierIndex($6,index)==0) yyerror("Index error");if(!verifierTypeCompatible($1,$6,-1)) yyerror("Type icompatible");}
+|                           T_IDF T_CROCHET_OUV INDEX T_CROCHET_FER T_AFFECTATION OPERATION_ARITHMETIQUE T_CROCHET_OUV INDEX T_CROCHET_FER T_FINIST {verifierDeclarationIDF($1);if(verifierIndex($1,index)==0) yyerror("Index error");}
 ;
-EXPRESSION:                 LIST_VAL
-|                           OPERATION_ARITHMETIQUE
+INDEX:                      T_IDF {verifierDeclarationIDF($1);if(verifierTypeCompatible($1,"",0)) index=getVal($1);else yyerror("Index must be INTEGER");}
+|                           V_INTEGER {index = $1;}
 ;
 LISTES:                     T_DOLLAR
 |                           T_POURCENT
@@ -107,9 +117,11 @@ LISTES:                     T_DOLLAR
 |                           T_ETCOM
 ;
 ENTREE:                     T_GET T_PARENTHESE_OUV LISTES T_POINT T_AROBASE T_IDF T_PARENTHESE_FER T_FINIST {verifierDeclarationIDF($6);}
+|                           T_GET T_PARENTHESE_OUV LISTES T_POINT T_AROBASE T_IDF T_CROCHET_OUV INDEX T_CROCHET_FER T_PARENTHESE_FER T_FINIST {verifierDeclarationIDF($6);}
 ;
 SORTIE:                 T_SHOW T_PARENTHESE_OUV V_STRING T_PARENTHESE_FER T_FINIST {show1($3,"");}
 |                       T_SHOW T_PARENTHESE_OUV V_STRING T_POINT T_IDF T_PARENTHESE_FER T_FINIST {verifierDeclarationIDF($5);show1($3,$5);}
+|                       T_SHOW T_PARENTHESE_OUV V_STRING T_POINT T_IDF T_CROCHET_OUV INDEX T_CROCHET_FER T_PARENTHESE_FER T_FINIST {verifierDeclarationIDF($5);show1($3,$5);}
 ;       
 CONDITIONIF:            T_IF T_PARENTHESE_OUV CONDITION T_PARENTHESE_FER T_POINT T_ACCOLADE_OUV BLOCK N_RETURN T_ACCOLADE_FER T_ENDIF {printf("IF correct\n");}
 |                       T_IF T_PARENTHESE_OUV CONDITION T_PARENTHESE_FER T_POINT T_ACCOLADE_OUV BLOCK N_RETURN T_ACCOLADE_FER N_ELSE T_ENDIF {printf("IF ELSE correct\n");}
@@ -117,6 +129,7 @@ CONDITIONIF:            T_IF T_PARENTHESE_OUV CONDITION T_PARENTHESE_FER T_POINT
 N_ELSE:                 T_ELSE T_POINT T_ACCOLADE_OUV BLOCK N_RETURN T_ACCOLADE_FER
 ;       
 N_RETURN:               T_RETURN T_PARENTHESE_OUV T_IDF T_PARENTHESE_FER T_FINIST {verifierDeclarationIDF($3);}
+|                       T_RETURN T_PARENTHESE_OUV T_IDF T_CROCHET_OUV INDEX T_CROCHET_FER T_PARENTHESE_FER T_FINIST {verifierDeclarationIDF($3);}
 |                       T_RETURN T_PARENTHESE_OUV LIST_VAL T_PARENTHESE_FER T_FINIST
 ;       
 CONDITION:              OPERAND OPERATEUR_LOGIQUE OPERAND
@@ -264,7 +277,7 @@ int verifierDeclarationIDF(char IDF[])
             }         
         }
 }
-int verifierTypeCompatible(char IDF1[],char IDF2[])
+int verifierTypeCompatible(char IDF1[],char IDF2[],int type)
 {
     int i;
     char temp[10];
@@ -273,16 +286,55 @@ int verifierTypeCompatible(char IDF1[],char IDF2[])
     {
         strcpy(temp,tab[i].typeSynt);
     }
-    for (i = 0;((i<1000)&&(tab[i].state==1))&&(strcmp(IDF2,tab[i].name)!=0); i++);
-    if ((i<1000)&&(strcmp(IDF2,tab[i].name))== 0)
+
+    switch (type)
     {
-        if (strcmp(temp,tab[i].typeSynt) == 0)
-        {
-            return 1;
-        }
-        return 0;
+        case 0:{
+            if (strcmp(temp,"INTEGER") == 0)
+            {
+                return 1;
+            }
+            return 0;
+        } break;
+
+        case 1:{
+            if (strcmp(temp,"FLOAT") == 0)
+            {
+                return 1;
+            }
+            return 0;
+        } break;
+
+        case 2:{
+            if (strcmp(temp,"CHAR") == 0)
+            {
+                return 1;
+            }
+            return 0;
+        } break;
+
+        case 3:{
+            if (strcmp(temp,"STRING") == 0)
+            {
+                return 1;
+            }
+            return 0;
+        } break;
+
+        default:{
+            for (i = 0;((i<1000)&&(tab[i].state==1))&&(strcmp(IDF2,tab[i].name)!=0); i++);
+            if ((i<1000)&&(strcmp(IDF2,tab[i].name))== 0)
+            {
+                if (strcmp(temp,tab[i].typeSynt) == 0)
+                {
+                    return 1;
+                }
+                return 0;
+            } 
+        } break;
     }
 }
+
 int verifierConst(char IDF[])
 {
     int i;
@@ -296,18 +348,59 @@ int verifierConst(char IDF[])
         return 0;
     }
 }
-int verifierIndex(char IDF[],int index)
+
+int getVal(char IDF[])
 {
     int i;
     for (i = 0;((i<1000)&&(tab[i].state==1))&&(strcmp(IDF,tab[i].name)!=0); i++);
-    if ((i<1000)&&(strcmp(IDF,tab[i].name)==0) && (strcmp(tab[i].type,"VAR-TAB"))== 0)
+    if ((i<1000)&&(strcmp(IDF,tab[i].name)==0) && (strcmp(tab[i].typeSynt,"INTEGER")) == 0)
     {
-        if (tab[i].val.ival < index)
-            return 0;
-        return 1;
+        return (int) tab[i].val.ival;
     }
 }
-int verifierVarOrConst(char IDF[])
+
+int verifierIndex(char IDF[],int index)
+{
+    int i,j;
+    for (i = 0;((i<1000)&&(tab[i].state==1))&&(strcmp(IDF,tab[i].name)!=0); i++);
+    if ((i<1000)&&(strcmp(IDF,tab[i].name)==0) && (strcmp(tab[i].type,"VAR-TAB"))== 0)
+    {
+        if (index >= 0 && index < tab[i].val.ival)
+        {
+            return 1;    
+        }
+        return 0;
+
+        ////////////////////////////////////////////////////////////////////////////////////////
+
+        /* if (type == 0)
+        {
+            for (j = 0;((j<1000)&&(tab[j].state==1))&&(strcmp(index,tab[j].name)!=0); j++);
+            if ((j<1000)&&(strcmp(index,tab[j].name)==0)&&(!strcmp(tab[j].typeSynt,"INTEGER")))
+            {
+                if (tab[j].val.ival < tab[i].val.ival)
+                {
+                    return 1;
+                }
+            }
+            return 0;
+        }
+        if (type == 1)
+        {
+            for (j = 0;((j<1000)&&(tabc[j].state==1))&&(strcmp(index,tabc[j].name)!=0); j++);
+            if ((j<1000)&&(strcmp(index,tabc[j].name)==0))
+            {
+                if (tabc[j].val.ival < tab[i].val.ival)
+                {
+                    return 1;
+                }
+            }
+            return 0;
+        } */
+    }
+}
+
+/* int verifierVarOrConst(char IDF[])
 {
     int i;
     for (i = 0;((i<1000)&&(tab[i].state==1))&&(strcmp(IDF,tab[i].name)!=0); i++);
@@ -317,15 +410,16 @@ int verifierVarOrConst(char IDF[])
     }
     return 0;
 }
+
 int semantiqueDeAff(char IDF[],char IDF2[],int choix)
 {
     int final = verifierDeclarationIDF(IDF);
     switch (choix)
     {
-    case 0: /* VAR */
+    case 0: 
         final = final + verifierTypeCompatible(IDF,IDF2);
         break;
-    case 1: /* CONST */
+    case 1:
         final = final + verifierConst(IDF);
         break;
     }
@@ -335,3 +429,4 @@ int semantiqueDeAff(char IDF[],char IDF2[],int choix)
     }
     return 1;
 }
+*/
