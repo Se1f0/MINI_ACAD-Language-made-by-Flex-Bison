@@ -1,15 +1,16 @@
-//fsfsdf//
 PROGRAM Test
 	VAR Prenom || Seif || Yass  : INTEGER£
 	LET Nom INTEGER = 800£
-	LET Yasser STRING="hello yasser"£
+	VAR Test : FLOAT£
+	LET Yasser STRING="hello yasserk"£
 	VAR C:CHAR£
 	LET Ss CHAR  = 'a'£
 	VAR Tab [100] : [INTEGER]£
 	VAR Mat [100] : [FLOAT]£
+	VAR Sss : STRING£
 BEGIN
-	Tab[10] = Tab[20]£
-	FOR(Seif:1:Seif==0)
+	Seif = (-12)£
+	//FOR(Seif:1:Seif==0)
 		Seif = 10£
 	END_FOR
 	IF(Seif <<>> 2):
@@ -28,21 +29,12 @@ BEGIN
 		}
 		ENDIF
 		Seif = 22+33£
-		//Seif = 22+33£//
+		Seif = 22+33£
 	  	RETURN(Seif)£
 	}
 	ELSE:
 	{
 		RETURN(9)£
 	}
-	ENDIF
-	Seif = (((-4)+5))£
-	GET("#":@Seif)£
-	GET("$":@Seif)£
-	GET("%":@Seif)£
-	GET("&":@Seif)£
-	SHOW("# c'est une chaine \n":Yasser)£
-	SHOW("$ c'est un entier\n":Nom)£
-	SHOW("hello\n world\nyasser\tbelhimer\n")£
-	Seif = 10£//fsfsdf//
+	ENDIF//
 END
