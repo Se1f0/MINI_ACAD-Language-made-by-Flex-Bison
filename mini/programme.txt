@@ -1,6 +1,6 @@
 PROGRAM Test
 	VAR Prenom || Seif || Yass  : INTEGER£
-	LET Nom INTEGER = 800£
+	LET Nom INTEGER = 0£
 	VAR Test : FLOAT£
 	LET Yasser STRING="hello yasserk"£
 	VAR C:CHAR£
@@ -9,7 +9,7 @@ PROGRAM Test
 	VAR Mat [100] : [FLOAT]£
 	VAR Sss : STRING£
 BEGIN
-	Seif = (-12)£
+	Seif = 12/10£
 	//FOR(Seif:1:Seif==0)
 		Seif = 10£
 	END_FOR

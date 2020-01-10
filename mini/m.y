@@ -13,6 +13,7 @@ values val;
 char* idf;
 int type,myIndex,mode,option;
 int TabOrIdf = 0;
+int numerateur=0,denominateur;
 void yyerror(const char* s);
 void mise_ajour(char type[], char typeSynt[],int mode ,values val,char IDF[]);
 int verifierDeclarationIDF(char IDF[]);
@@ -22,6 +23,8 @@ int verifierIndex(char IDF[],int myIndex);
 int verifierTabOrVarOrConst(char IDF[]);
 int semantiqueDeAff(char IDF[],char IDF2[],int choix);
 int getVal(char IDF[]);
+int getType(char IDF[]);
+values getVal2(char IDF[]);
 void get(char IDF[],int type);
 void miseAjourIDF(char IDF1[],char IDF2[],values value,int type,int mode);
 %}
@@ -95,7 +98,7 @@ OPERATEUR_LOGIQUE:          T_SUPSTRICT
 ;
 OPERATION_ARITHMETIQUE:     OPERATION_ARITHMETIQUE T_ADD OPERATION_ARITHMETIQUE
 |                           OPERATION_ARITHMETIQUE T_SUB OPERATION_ARITHMETIQUE
-|                           OPERATION_ARITHMETIQUE T_DIV OPERATION_ARITHMETIQUE
+|                           OPERATION_ARITHMETIQUE T_DIV {numerateur=getSize();} OPERATION_ARITHMETIQUE {/*option=4;*/denominateur=getSize()-numerateur;}
 |                           OPERATION_ARITHMETIQUE T_MUL OPERATION_ARITHMETIQUE
 |                           T_PARENTHESE_OUV OPERATION_ARITHMETIQUE T_PARENTHESE_FER
 |                           T_IDF VAR {
@@ -106,9 +109,18 @@ OPERATION_ARITHMETIQUE:     OPERATION_ARITHMETIQUE T_ADD OPERATION_ARITHMETIQUE
                                         }
                                         option=0;
                                         idf = strdup($1);
+                                        val = getVal2($1);
+                                        if(!getType($1))
+                                        {
+                                            insererEXP($1,val,"INTEGER","VAR");
+                                        }
+                                        else
+                                        {
+                                            insererEXP($1,val,"INTEGER","CONST");
+                                        }
                                       }
-|                           V_INTEGER {val.ival=$1;option=1;type=0;}
-|                           V_FLOAT   {val.fval=$1;option=1;type=1;}
+|                           V_INTEGER {val.ival=$1;option=1;type=0;insererEXP("VAL",val,"INTEGER","CONST");}
+|                           V_FLOAT   {val.fval=$1;option=1;type=1;insererEXP("VAL",val,"FLOAT","CONST");}
 ;
 OPERAND:                    T_IDF VAR
 |                           V_INTEGER
@@ -120,7 +132,7 @@ EXPRESSION:                 LIST_VAL2 {mode=0;}
 VAR:                        T_CROCHET_OUV INDEX T_CROCHET_FER {TabOrIdf=1;}
 |
 ;
-AFFECTATION:                T_IDF VAR T_AFFECTATION EXPRESSION T_FINIST {
+AFFECTATION:                T_IDF VAR T_AFFECTATION {initialisationEXP();} EXPRESSION T_FINIST {
                                                                             verifierDeclarationIDF($1);
                                                                             if(!TabOrIdf)
                                                                             {
@@ -151,8 +163,56 @@ AFFECTATION:                T_IDF VAR T_AFFECTATION EXPRESSION T_FINIST {
                                                                                         miseAjourIDF($1,"",val,type,1);
                                                                                         break;
                                                                                     }
+                                                                                    /*case 4:
+                                                                                    {
+                                                                                        denominateur = getSize()-numerateur;
+                                                                                        break;
+                                                                                    }*/
                                                                                 }  
-                                                                            }                                                                           
+                                                                            }
+                                                                            if (numerateur!=0)
+                                                                            {
+                                                                                if (denominateur+numerateur==getSize())
+                                                                                {
+                                                                                    if (!strcmp(tabEXP[getSize()-1].nom,"VAL"))
+                                                                                    {
+                                                                                        if (!strcmp(tabEXP[getSize()-1].typeSynt,"INTEGER"))
+                                                                                        {
+                                                                                            if(tabEXP[getSize()-1].val.ival==0)
+                                                                                            {
+                                                                                                yyerror("Division par 0");
+                                                                                            }
+                                                                                        }
+                                                                                        else
+                                                                                        {
+                                                                                            if(tabEXP[getSize()-1].val.fval==0)
+                                                                                            {
+                                                                                                yyerror("Division par 0");
+                                                                                            }
+                                                                                        }
+                                                                                    }
+                                                                                    else
+                                                                                    {
+                                                                                        if (!strcmp(tabEXP[getSize()-1].type,"CONST"))
+                                                                                        {
+                                                                                            if (!strcmp(tabEXP[getSize()-1].typeSynt,"INTEGER"))
+                                                                                            {
+                                                                                                if(tabEXP[getSize()-1].val.ival==0)
+                                                                                                {
+                                                                                                    yyerror("Division par 0");
+                                                                                                }
+                                                                                            }
+                                                                                            else
+                                                                                            {
+                                                                                                if(tabEXP[getSize()-1].val.fval==0)
+                                                                                                {
+                                                                                                    yyerror("Division par 0");
+                                                                                                }
+                                                                                            }
+                                                                                        }
+                                                                                    }
+                                                                                }
+                                                                            }
                                                                         }
 ;
 INDEX:                      T_IDF {verifierDeclarationIDF($1);verifierTypeCompatible($1,"",0);myIndex=getVal($1);}
@@ -397,6 +457,29 @@ int verifierConst(char IDF[])
             yyerror(error);
         }
         return 0;
+    }
+}
+int getType(char IDF[])
+{
+    int i;
+    for (i = 0;((i<1000)&&(tab[i].state==1))&&(strcmp(IDF,tab[i].name)!=0); i++);
+    if ((i<1000)&&(!strcmp(IDF,tab[i].name)))
+    {
+        if (!strcmp(tab[i].type,"VAR") || !strcmp(tab[i].type,"VAR-TAB"))
+        {
+            return 0;
+        }
+        return 1;
+    }
+}
+
+values getVal2(char IDF[])
+{
+    int i;
+    for (i = 0;((i<1000)&&(tab[i].state==1))&&(strcmp(IDF,tab[i].name)!=0); i++);
+    if ((i<1000)&&(strcmp(IDF,tab[i].name)==0) && (strcmp(tab[i].typeSynt,"INTEGER")) == 0)
+    {
+        return tab[i].val;
     }
 }
 
