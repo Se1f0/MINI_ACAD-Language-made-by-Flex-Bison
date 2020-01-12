@@ -16,6 +16,14 @@ typedef struct
     values val;
 }elementEXP;
 
+typedef struct
+{
+    elementEXP numerateur[10];
+    elementEXP denominateur[10];
+    int state;
+}elementDIV;
+
+elementDIV tabDIV[1000];
 elementEXP tabEXP[1000];
 elementIDF tabIDF[1000];
 
@@ -41,12 +49,14 @@ int insererEXP(char idf[],values val,char typeSynt[],char type[])
     }
     return 0;
 }
+
 int getSize()
 {
     int i;
     for (i = 0;((i<1000)&&(tabEXP[i].state==1)); i++);
     return i;
 }
+
 void afficherEXP()
 {
     values val;
@@ -63,12 +73,22 @@ void afficherEXP()
     }
 }
 
+void initialisationDIV()
+{
+    int i;
+    for (i=0;i<1000;i++) 
+        tabEXP[i].state=0;
+        initialisationEXP(tabDIV[i].numerateur);
+        initialisationEXP(tabDIV[i].denominateur);
+}
+
 void initialisationIDF()
 {
     int i;
     for (i=0;i<1000;i++) 
         tabIDF[i].state=0;
 }
+
 int insererIDF(char idf[])
 {
     int i = 0;
@@ -81,6 +101,7 @@ int insererIDF(char idf[])
     }
     return 0;
 }
+
 void afficherIDF()
 {
     for (int i = 0; (i < 1000)&&(tabIDF[i].state==1); i++)

@@ -9,31 +9,51 @@ PROGRAM Test
 	VAR Mat [100] : [FLOAT]£
 	VAR Sss : STRING£
 BEGIN
-	Seif = 12/10£
+	Seif = 10£
 	//FOR(Seif:1:Seif==0)
 		Seif = 10£
-	END_FOR
-	IF(Seif <<>> 2):
+	END_FOR//
+	//IF(Seif <<>> 2):
 	{ 
-		IF(Seif <<>> 2):
+		IF(Seif << 2):
 		{ 
-			IF(Seif <<>> 2):
-			{ 
+			IF(Seif >> 2):
+			{ 		
+				IF(Seif == 2):
+				{ 
+					IF(Seif <<= 2):
+					{ 
+						Seif = 2*10+3£
+						RETURN(Seif)£
+					}
+					ENDIF
+					Seif = 2*10+3£
+					RETURN(Seif)£
+				}
+				ELSE:
+				{
+					RETURN(9)£
+				}
+				ENDIF
 				Seif = 22+33£
-				C='y'£
 	  			RETURN(Seif)£
 			}
+			ELSE:
+			{
+				Yass = 25£
+				RETURN(9)£
+			}
 			ENDIF
-			Seif = 22+33£
-	  		Seif = 22+33£RETURN(Seif)£
+			Seif = 2*10+3£
+			RETURN(Seif)£
 		}
 		ENDIF
-		Seif = 22+33£
 		Seif = 22+33£
 	  	RETURN(Seif)£
 	}
 	ELSE:
 	{
+		Seif = 11£
 		RETURN(9)£
 	}
 	ENDIF//
