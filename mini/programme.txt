@@ -1,44 +1,59 @@
-//fsfsdf//
 PROGRAM Test
 	VAR Prenom || Seif || Yass  : INTEGER£
-	LET Nom INTEGER = 800£
-	LET Yasser STRING="hello yasser"£
+	LET Nom INTEGER = 0£
+	VAR Test : FLOAT£
+	LET Yasser STRING="hello yasserk"£
 	VAR C:CHAR£
 	LET Ss CHAR  = 'a'£
 	VAR Tab [100] : [INTEGER]£
 	VAR Mat [100] : [FLOAT]£
+	VAR Sss : STRING£
 BEGIN
-	Tab[10] = Tab[20]£
-	FOR(Seif:1:Seif==0)
+	//FOR(Seif:1:Seif==0)
 		Seif = 10£
-	END_FOR
+	END_FOR//
 	IF(Seif <<>> 2):
 	{ 
-		IF(Seif <<>> 2):
+		IF(Seif << 2):
 		{ 
-			IF(Seif <<>> 2):
-			{ 
+			IF(Seif >> 2):
+			{ 		
+				IF(Seif == 2):
+				{ 
+					IF(Seif <<= 2):
+					{ 
+						Seif = 2*10+3£
+						RETURN(Seif)£
+					}
+					ENDIF
+					Seif = 2*10+3£
+					RETURN(Seif)£
+				}
+				ELSE:
+				{
+					RETURN(9)£
+				}
+				ENDIF
 				Seif = 22+33£
-				C='y'£
 	  			RETURN(Seif)£
 			}
+			ELSE:
+			{
+				Yass = 25£
+				RETURN(9)£
+			}
 			ENDIF
-			Seif = 22+33£
-	  		Seif = 22+33£RETURN(Seif)£
+			Seif = 2*10+3£
+			RETURN(Seif)£
 		}
 		ENDIF
 		Seif = 22+33£
-		//Seif = 22+33£//
 	  	RETURN(Seif)£
 	}
 	ELSE:
 	{
+		Seif = 11£
 		RETURN(9)£
 	}
 	ENDIF
-	Seif = (((-4)+5))£
-	SHOW("donner un entier \n")£
-	GET("$":@Yass)£
-	SHOW("Vous avez entre $ \n":Yass)£
-	Seif = 10£//fsfsdf//
 END
