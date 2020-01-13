@@ -9,10 +9,13 @@ PROGRAM Test
 	VAR Mat [100] : [FLOAT]£
 	VAR Sss : STRING£
 BEGIN
+	//Seif = 10.9+20£//
 	//FOR(Seif:1:Seif==0)
-		Seif = 10£
+		Seif =10£
 	END_FOR//
-	IF(Seif <<>> 2):
+	Seif =12/09-8£
+	Test = 12.3/0.1£
+	//IF(Seif <<>> 2):
 	{ 
 		IF(Seif << 2):
 		{ 
@@ -55,5 +58,5 @@ BEGIN
 		Seif = 11£
 		RETURN(9)£
 	}
-	ENDIF
+	ENDIF//
 END

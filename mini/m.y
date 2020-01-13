@@ -30,9 +30,12 @@ int verifierTabOrVarOrConst(char IDF[]);
 int semantiqueDeAff(char IDF[],char IDF2[],int choix);
 int getVal(char IDF[]);
 int getType(char IDF[]);
+int getTypeSynt(char IDF[]);
+int floatExist(elementEXP tabEXP[],int taille);
 values getVal2(char IDF[]);
 void get(char IDF[],int type);
 void miseAjourIDF(char IDF1[],char IDF2[],values value,int type,int mode);
+int divPar0(char IDF[]);
 %}
 %union {
 int ival;
@@ -103,10 +106,10 @@ OPERATEUR_LOGIQUE:          T_SUPSTRICT {$$ = strdup("BP");}
 |                           T_EGAL      {$$ = strdup("BZ");}
 |                           T_DIFF      {$$ = strdup("BNZ");}
 ;
-OPERATION_ARITHMETIQUE:     OPERATION_ARITHMETIQUE T_ADD OPERATION_ARITHMETIQUE {sprintf(tmp,"T%d",tmpQc++); quadr("+",$1,$3,tmp);qc++;$$=strdup(tmp);}
-|                           OPERATION_ARITHMETIQUE T_SUB OPERATION_ARITHMETIQUE {sprintf(tmp,"T%d",tmpQc++);quadr("-",$1,$3,tmp);qc++;$$=strdup(tmp);}
-|                           OPERATION_ARITHMETIQUE T_DIV {numerateur=getSize();} OPERATION_ARITHMETIQUE {denominateur=getSize()-numerateur;sprintf(tmp,"T%d",tmpQc++);quadr("/",$1,$4,tmp);qc++;$$=strdup(tmp);}
-|                           OPERATION_ARITHMETIQUE T_MUL OPERATION_ARITHMETIQUE {sprintf(tmp,"T%d",tmpQc++);quadr("*",$1,$3,tmp);qc++;$$=strdup(tmp);}
+OPERATION_ARITHMETIQUE:     OPERATION_ARITHMETIQUE T_ADD OPERATION_ARITHMETIQUE {sprintf(tmp,"t%d",tmpQc++); quadr("+",$1,$3,tmp);qc++;$$=strdup(tmp);}
+|                           OPERATION_ARITHMETIQUE T_SUB OPERATION_ARITHMETIQUE {sprintf(tmp,"t%d",tmpQc++);quadr("-",$1,$3,tmp);qc++;$$=strdup(tmp);}
+|                           OPERATION_ARITHMETIQUE T_DIV OPERATION_ARITHMETIQUE {if(divPar0($3)) yyerror("Division par 0");sprintf(tmp,"t%d",tmpQc++);quadr("/",$1,$3,tmp);qc++;$$=strdup(tmp);}
+|                           OPERATION_ARITHMETIQUE T_MUL OPERATION_ARITHMETIQUE {sprintf(tmp,"t%d",tmpQc++);quadr("*",$1,$3,tmp);qc++;$$=strdup(tmp);}
 |                           T_PARENTHESE_OUV OPERATION_ARITHMETIQUE T_PARENTHESE_FER {$$= strdup($2);}
 |                           T_IDF VAR {
                                         verifierDeclarationIDF($1);
@@ -141,98 +144,66 @@ VAR:                        T_CROCHET_OUV INDEX T_CROCHET_FER {TabOrIdf=1;}
 |
 ;
 AFFECTATION:                T_IDF VAR T_AFFECTATION {initialisationEXP();} EXPRESSION T_FINIST {                                                                            
-                                                                            verifierDeclarationIDF($1);
-                                                                            if(!TabOrIdf)
-                                                                            {
-                                                                                verifierConst($1);
-                                                                            }
-                                                                            else
-                                                                            {
-                                                                                verifierIndex($1,myIndex);
-                                                                            }
-                                                                            if (!mode)
-                                                                            {
-                                                                                verifierTypeCompatible($1,"",type);
-                                                                                miseAjourIDF($1,"",val,type,1);
-                                                                                if(type==2)
-                                                                                {
-                                                                                    quadr("=",tmp,"",$1);
-                                                                                    qc++;
-                                                                                }
-                                                                                else if(type==3)
-                                                                                {
-                                                                                    quadr("=",tmp,"",$1);
-                                                                                    qc++;
-                                                                                }
-                                                                            }
-                                                                            if (mode)
-                                                                            {
-                                                                                switch (option)
-                                                                                {
-                                                                                    case 0:
-                                                                                    {
-                                                                                        verifierTypeCompatible($1,idf,-1);
-                                                                                        miseAjourIDF($1,idf,val,type,0);
-                                                                                        break;
-                                                                                    }
-                                                                                    case 1:
-                                                                                    {
-                                                                                        verifierTypeCompatible($1,"",type);
-                                                                                        miseAjourIDF($1,"",val,type,1);
-                                                                                        break;
-                                                                                    }
-                                                                                    /*case 4:
-                                                                                    {
-                                                                                        denominateur = getSize()-numerateur;
-                                                                                        break;
-                                                                                    }*/
-                                                                                }  
-                                                                                quadr("=",tmp,"",$1);qc++;
-                                                                            }
-                                                                            if (numerateur!=0)
-                                                                            {
-                                                                                if (denominateur+numerateur==getSize())
-                                                                                {
-                                                                                    if (!strcmp(tabEXP[getSize()-1].nom,"VAL"))
-                                                                                    {
-                                                                                        if (!strcmp(tabEXP[getSize()-1].typeSynt,"INTEGER"))
-                                                                                        {
-                                                                                            if(tabEXP[getSize()-1].val.ival==0)
-                                                                                            {
-                                                                                                yyerror("Division par 0");
-                                                                                            }
-                                                                                        }
-                                                                                        else
-                                                                                        {
-                                                                                            if(tabEXP[getSize()-1].val.fval==0)
-                                                                                            {
-                                                                                                yyerror("Division par 0");
-                                                                                            }
-                                                                                        }
-                                                                                    }
-                                                                                    else
-                                                                                    {
-                                                                                        if (!strcmp(tabEXP[getSize()-1].type,"CONST"))
-                                                                                        {
-                                                                                            if (!strcmp(tabEXP[getSize()-1].typeSynt,"INTEGER"))
-                                                                                            {
-                                                                                                if(tabEXP[getSize()-1].val.ival==0)
-                                                                                                {
-                                                                                                    yyerror("Division par 0");
+                                                                                                    verifierDeclarationIDF($1);
+                                                                                                    if(!TabOrIdf)
+                                                                                                    {
+                                                                                                        verifierConst($1);
+                                                                                                    }
+                                                                                                    else
+                                                                                                    {
+                                                                                                        verifierIndex($1,myIndex);
+                                                                                                    }
+                                                                                                    if (!mode)
+                                                                                                    {
+                                                                                                        verifierTypeCompatible($1,"",type);
+                                                                                                        miseAjourIDF($1,"",val,type,1);
+                                                                                                        if(type==2)
+                                                                                                        {
+                                                                                                            quadr("=",tmp,"",$1);
+                                                                                                            qc++;
+                                                                                                        }
+                                                                                                        else if(type==3)
+                                                                                                        {
+                                                                                                            quadr("=",tmp,"",$1);
+                                                                                                            qc++;
+                                                                                                        }
+                                                                                                    }
+                                                                                                    if (mode)
+                                                                                                    {
+                                                                                                        if(getSize()>1)
+                                                                                                        {
+                                                                                                            int drake = getTypeSynt($1);                                                                               
+                                                                                                            if (floatExist(tabEXP,getSize()) && !drake)
+                                                                                                            {
+                                                                                                                yyerror("Incompatiblite de type!");
+                                                                                                            }
+                                                                                                            if (!floatExist(tabEXP,getSize()) && drake)
+                                                                                                            {
+                                                                                                                yyerror("Incompatiblite de type!");
+                                                                                                            } 
+                                                                                                        }
+                                                                                                        else
+                                                                                                        {
+                                                                                                            switch (option)
+                                                                                                            {
+                                                                                                                case 0:
+                                                                                                                {
+                                                                                                                    verifierTypeCompatible($1,idf,-1);
+                                                                                                                    miseAjourIDF($1,idf,val,type,0);
+                                                                                                                    break;
+                                                                                                                }
+                                                                                                                case 1:
+                                                                                                                {
+                                                                                                                    verifierTypeCompatible($1,"",type);
+                                                                                                                    miseAjourIDF($1,"",val,type,1);
+                                                                                                                    break;
+                                                                                                                }
+                                                                                                            }
+                                                                                                        }                                                                          
+                                                                                  
+                                                                                                        quadr("=",tmp,"",$1);qc++;
+                                                                                                    }
                                                                                                 }
-                                                                                            }
-                                                                                            else
-                                                                                            {
-                                                                                                if(tabEXP[getSize()-1].val.fval==0)
-                                                                                                {
-                                                                                                    yyerror("Division par 0");
-                                                                                                }
-                                                                                            }
-                                                                                        }
-                                                                                    }
-                                                                                }
-                                                                            }
-                                                                        }
 ;
 INDEX:                      T_IDF {verifierDeclarationIDF($1);verifierTypeCompatible($1,"",0);myIndex=getVal($1);}
 |                           V_INTEGER {myIndex = $1;}
@@ -541,65 +512,9 @@ int verifierIndex(char IDF[],int myIndex)
             return 1;   
         }
         yyerror("Index error");
-        ////////////////////////////////////////////////////////////////////////////////////////
-
-        /* if (type == 0)
-        {
-            for (j = 0;((j<1000)&&(tab[j].state==1))&&(strcmp(index,tab[j].name)!=0); j++);
-            if ((j<1000)&&(strcmp(index,tab[j].name)==0)&&(!strcmp(tab[j].typeSynt,"INTEGER")))
-            {
-                if (tab[j].val.ival < tab[i].val.ival)
-                {
-                    return 1;
-                }
-            }
-            return 0;
-        }
-        if (type == 1)
-        {
-            for (j = 0;((j<1000)&&(tabc[j].state==1))&&(strcmp(index,tabc[j].name)!=0); j++);
-            if ((j<1000)&&(strcmp(index,tabc[j].name)==0))
-            {
-                if (tabc[j].val.ival < tab[i].val.ival)
-                {
-                    return 1;
-                }
-            }
-            return 0;
-        } */
     }
 }
 
-/* int verifierVarOrConst(char IDF[])
-{
-    int i;
-    for (i = 0;((i<1000)&&(tab[i].state==1))&&(strcmp(IDF,tab[i].name)!=0); i++);
-    if ((i<1000)&&(strcmp(IDF,tab[i].name)) && (strcmp(tab[i].type,"CONST"))== 0)
-    {
-        return 1;
-    }
-    return 0;
-}
-
-int semantiqueDeAff(char IDF[],char IDF2[],int choix)
-{
-    int final = verifierDeclarationIDF(IDF);
-    switch (choix)
-    {
-    case 0: 
-        final = final + verifierTypeCompatible(IDF,IDF2);
-        break;
-    case 1:
-        final = final + verifierConst(IDF);
-        break;
-    }
-    if (final < 2)
-    {
-        return 0;
-    }
-    return 1;
-}
-*/
 void get(char IDF[],int type)
 {
     int i;
@@ -683,7 +598,6 @@ void miseAjourIDF(char IDF1[],char IDF2[],values value,int type,int mode)
                     }
                     if (!strcmp(tab[j].typeSynt,"STRING"))
                     {
-                        printf("    Zabi\n");
                         tab[i].val.sval = strdup (tab[j].val.sval);
                         return;
                     }
@@ -731,4 +645,61 @@ void miseAjourIDF(char IDF1[],char IDF2[],values value,int type,int mode)
             }
         }
     }
+}
+
+int getTypeSynt(char IDF[])
+{
+    int i;
+    for (i = 0;((i<1000)&&(tab[i].state==1))&&(strcmp(IDF,tab[i].name)!=0); i++);
+    if ((i<1000)&&(!strcmp(IDF,tab[i].name)))
+    {
+        if (!strcmp(tab[i].typeSynt,"INTEGER"))
+        {
+            return 0;
+        }
+        if (!strcmp(tab[i].typeSynt,"FLOAT"))
+        {
+            return 1;
+        }
+    }
+}
+
+int floatExist(elementEXP tabEXP[],int taille)
+{
+    int i;
+    for (i=0;i<taille;i++)
+    {
+        if (!strcmp(tabEXP[i].typeSynt,"FLOAT"))
+        {
+            return 1;
+        }
+    }
+    return 0;
+}
+int divPar0(char IDF[])
+{
+    int i;
+    for(i=0;((i<1000)&&(tab[i].state==1))&&(strcmp(IDF,tab[i].name)!=0);i++);
+    if((i<1000)&&(strcmp(IDF,tab[i].name)==0))
+    {
+        if(!strcmp(tab[i].type,"CONST"))
+        {
+            if(!strcmp(tab[i].typeSynt,"INTEGER"))
+            {
+                if(tab[i].val.ival==0)
+                    return 1;
+            }
+            else if(!strcmp(tab[i].typeSynt,"FLOAT"))
+            {
+                if(tab[i].val.fval==0.0)
+                    return 1;
+            } 
+        }
+    }
+    else if(IDF[0]!='t')
+    {
+        if(atof(IDF)==0.0)
+            return 1;
+    }
+    return 0;
 }

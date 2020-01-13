@@ -13,6 +13,7 @@ typedef struct
 }values;
 extern void yyerror(const char* s);
 extern void recherche (char entite[ ], char type [ ],char typeSynt[], values val, int y);
+int nbSausLigne(char ch[]);
 values val;
 int yylineo=1;
 int Col=1;
@@ -132,6 +133,7 @@ PARENTHES-FER ")"
 }
 "//"[^//]+"//" {
     Col = Col + strlen(yytext);
+    yylineo+= nbSausLigne(yytext);
 }
 @ {
     Col = Col + strlen(yytext);
@@ -338,3 +340,14 @@ STRING {
     yyerror("lexecal");
 }
 %%
+int nbSausLigne(char ch[]){
+    int i,j,nb=0;
+    for (i = 0; i < strlen(ch); i++)
+    {
+        if (ch[i]=='\n')
+        {
+            nb++;
+        }
+    }
+    return nb;
+}
