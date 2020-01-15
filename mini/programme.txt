@@ -1,5 +1,5 @@
 PROGRAM Test
-	VAR Prenom || Seif || Yass  : INTEGER£
+	VAR Prenomoi || Seif || Yass  : INTEGER£
 	LET Nom INTEGER = 0£
 	VAR Test : FLOAT£
 	LET Yasser STRING="hello yasserk"£
@@ -9,13 +9,14 @@ PROGRAM Test
 	VAR Mat [100] : [FLOAT]£
 	VAR Sss : STRING£
 BEGIN
-	//Seif = 10.9+20£//
-	//FOR(Seif:1:Seif==0)
+
+	Seif = 100£
+	Tab[Seif] = 10£
+	FOR(Seif:1:Seif==0)
 		Seif =10£
-	END_FOR//
-	Seif =12/09-8£
-	Test = 12.3/0.1£
-	//IF(Seif <<>> 2):
+	END_FOR
+	//Test = 12.3/0.1£//
+	IF(Seif <<>> 2):
 	{ 
 		IF(Seif << 2):
 		{ 
@@ -25,7 +26,7 @@ BEGIN
 				{ 
 					IF(Seif <<= 2):
 					{ 
-						Seif = 2*10+3£
+						Seif = 2*10+3+(9)£
 						RETURN(Seif)£
 					}
 					ENDIF
@@ -55,8 +56,8 @@ BEGIN
 	}
 	ELSE:
 	{
-		Seif = 11£
 		RETURN(9)£
 	}
-	ENDIF//
+	ENDIF
+	Prenomoi = 23/10£
 END

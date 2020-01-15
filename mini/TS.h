@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 typedef struct
 {
     int ival;
@@ -123,39 +124,40 @@ void initialisation()
 void afficher()
 {
     int i;
-    printf("\n\nla table des IDF\n");
+    printf("\n ************************************ la table des IDF *************************************\n");
+    printf("\n ___________________________________________________________________________________________\n");
     for(i = 0;i<1000;i++)
     {
         if(tab[i].state==1)
         {
-            if(!strcmp(tab[i].typeSynt,"CHAINE"))
-                printf("Entite :%s\t\t",tab[i].name);
+            if(strlen(tab[i].name)>4)
+                printf("\n| Entite : %s\t|",tab[i].name);
             else
-                printf("Entite :%s\t\t\t\t",tab[i].name);
-            printf("Type :%s\t\t",tab[i].type);
-            printf("TypeSynt :%s\t\t",tab[i].typeSynt);
-            if(tab[i].sub!=0)
-                printf("SUB : %d\t\t",tab[i].sub);
+                printf("\n| Entite : %s\t\t|",tab[i].name);
+            if(!strcmp(tab[i].type,"VAR-TAB"))
+                printf(" Type : %s\t|",tab[i].type);
+            else
+                printf(" Type : %s\t\t|",tab[i].type);
+            printf(" TypeSynt : %s\t| ",tab[i].typeSynt);
             if (!strcmp(tab[i].type,"VAR-TAB"))
             {
                 if (!strcmp(tab[i].typeSynt,"CHAR")||!strcmp(tab[i].typeSynt,"FLOAT"))
-                    printf("\tTaille-MAX : %d",tab[i].val.ival);
+                    printf("Taille-MAX : %d",tab[i].val.ival);
                 else
                 printf("Taille-MAX : %d",tab[i].val.ival);
             }
             else if (!strcmp("STRING",tab[i].typeSynt))
                 printf ("VAL : %s",tab[i].val.sval);
             else if (!strcmp("CHAR",tab[i].typeSynt))
-                printf("\tVAL : %c",tab[i].val.cval);
+                printf("VAL : %c",tab[i].val.cval);
             else if (!strcmp("INTEGER",tab[i].typeSynt))
                 printf("VAL : %d",tab[i].val.ival);
             else if (!strcmp("FLOAT",tab[i].typeSynt))
-                printf("\tVAL : %f",tab[i].val.fval);
-            printf("\n");
-            
+                printf("VAL : %f",tab[i].val.fval);
+            printf("\n ___________________________________________________________________________________________\n");
         }
     }
-    printf("\n\nla table des CONST \n");
+    /*printf("\n\nla table des CONST \n");
     for(i = 0;i<1000;i++)
     {
         if(tabc[i].state==1)
@@ -183,23 +185,51 @@ void afficher()
             printf("\n");
             
         }
-    }
-    printf("\nla table des mots cles\n");
+    }*/
+    printf("\n ******************* la table des mots cles ********************\n");
+    printf("\n _______________________________________________________________\n");
     for(i=0;(i<40);i++)
     {
         if(tabm[i].state==1)
         {
-            printf("Entite %s\t\t",tabm[i].name);
-            printf("Type %s\n",tabm[i].type);
+            if (strlen(tabm[i].name)>7)
+            {
+                printf("\n| Entite : %s\t|",tabm[i].name);
+            }
+            else if (strlen(tabm[i].name)>4)
+            {
+                printf("\n| Entite : %s\t\t|",tabm[i].name);
+            }
+            else if (strlen(tabm[i].name)==4)
+            {
+                printf("\n| Entite : %s\t\t\t|",tabm[i].name);
+            }
+            else
+            {
+                printf("\n| Entite : %s\t\t\t|",tabm[i].name);
+            }
+            printf("\tType %s\t\t|",tabm[i].type);
+            printf("\n _______________________________________________________________\n");
         }
     }
-    printf("\nla table des separateurs\n");
+    printf("\n*************** la table des separateurs ***************\n");
+    printf("\n _______________________________________________________\n");
     for(i=0;i<40;i++) 
     {
         if(tabs[i].state==1)
         {
-            printf("Entite %s\t\t",tabs[i].name);
-            printf("Type %s\n",tabs[i].type);
+            printf("\n| Entite : %s\t\t|",tabs[i].name);
+            if (strlen(tabs[i].type)>7)
+            {
+                printf("\tType : %s\t|",tabs[i].type);
+            }
+            else
+            {
+                printf("\tType : %s\t\t|",tabs[i].type);
+            }
+            
+            
+            printf("\n _______________________________________________________\n");
         }
     }
 }

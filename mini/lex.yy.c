@@ -292,12 +292,12 @@ static yyconst short int yy_accept[123] =
        35,   35,   15,   16,    1,   47,    2,   47,    0,   39,
         0,   38,    0,    0,   36,   37,    5,    7,    3,   35,
         0,    0,    0,    0,    0,    0,    0,   29,    0,    0,
-        0,    0,    0,    0,    0,   17,   40,    0,    0,   36,
-        6,    0,    4,    0,    0,    0,   26,    0,   33,   23,
-        0,   22,    0,    0,    0,    0,   27,   37,    0,    0,
-        8,    0,   45,   32,    0,    0,    0,    0,    0,    0,
+        0,    0,    0,    0,    0,   17,   40,    0,    0,    0,
+       36,    6,    0,    4,    0,    0,    0,   26,    0,   33,
+       23,    0,   22,    0,    0,    0,    0,   27,   37,    0,
+       20,    8,    0,   45,   32,    0,    0,    0,    0,    0,
 
-       28,    0,   36,    0,   20,   25,   31,    0,   44,    0,
+        0,   28,    0,   36,    0,   25,   31,    0,   44,    0,
         0,    0,    0,    0,    0,    0,   30,   46,   34,   43,
        24,    0
     } ;
@@ -337,7 +337,7 @@ static yyconst int yy_ec[256] =
 static yyconst int yy_meta[49] =
     {   0,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
-        1,    2,    1,    1,    1,    1,    1,    1,    1,    1,
+        1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1
@@ -349,16 +349,16 @@ static yyconst short int yy_base[126] =
       169,  169,  169,  153,   40,  169,  149,  147,  145,  169,
        39,   41,   42,   43,   44,   46,   47,   52,   45,   54,
        57,   79,  169,  169,  169,  116,  169,  113,  155,  169,
-      153,  169,  144,    0,  143,   50,   64,  169,  139,   53,
-      129,  134,  117,  129,  118,  115,  112,  169,  111,  110,
-      113,  108,  111,  108,  107,  169,  169,   92,  128,  126,
-      169,  121,  169,  110,  102,  112,   64,  115,  169,  169,
-      110,  169,  107,   94,   91,  102,  169,  169,   94,  116,
-      169,   96,  169,  169,   97,   96,   83,   93,   83,   82,
+      153,  169,  144,  144,  142,   50,   64,  169,  138,   53,
+      128,  133,  116,  128,  117,  114,  111,  169,  110,  109,
+      112,  107,  110,  107,  106,  169,  169,   92,  127,  126,
+      124,  169,  119,  169,  108,  100,  110,   64,  113,  169,
+      169,  108,  169,  105,   92,   89,  100,  169,  169,   94,
+      114,  169,   94,  169,  169,  100,   99,   85,   95,   85,
 
-      169,   84,  169,   95,  169,  169,  169,   82,  169,   90,
-       93,   80,   85,   75,   70,   64,  169,  169,  169,  169,
-      169,  169,  122,  124,   61
+       84,  169,   86,  169,   95,  169,  169,   84,  169,   92,
+       95,   82,   87,   77,   76,   79,  169,  169,  169,  169,
+      169,  169,  103,   93,   61
     } ;
 
 static yyconst short int yy_def[126] =
@@ -369,7 +369,7 @@ static yyconst short int yy_def[126] =
       122,  122,  122,  122,  122,  122,  122,  122,  123,  122,
       122,  122,  122,  125,  122,  122,  122,  122,  122,  122,
       122,  122,  122,  122,  122,  122,  122,  122,  122,  122,
-      122,  122,  122,  122,  122,  122,  122,  122,  125,  122,
+      122,  122,  122,  122,  122,  122,  122,  122,  125,  125,
       122,  122,  122,  122,  122,  122,  122,  122,  122,  122,
       122,  122,  122,  122,  122,  122,  122,  122,  122,  122,
       122,  122,  122,  122,  122,  122,  122,  122,  122,  122,
@@ -388,16 +388,16 @@ static yyconst short int yy_nxt[218] =
        34,    4,    4,   35,   36,   37,    4,   38,   43,   43,
        45,   50,   46,   50,   50,   50,   50,   50,   50,   50,
        45,   69,   46,   51,   50,   50,   50,   52,   57,   50,
-       58,   53,   55,   54,   60,   56,   62,   59,   61,   71,
-       72,   50,   63,   50,   50,   50,   50,   50,   50,   50,
-       95,   50,   64,  121,   50,   50,   50,   65,   88,   50,
+       58,   53,   55,   54,   60,   56,   62,   59,   61,   72,
+       73,   50,   63,   50,   50,   50,   50,   50,   50,   50,
+       96,   50,   64,   41,   50,   50,   50,   65,   89,   50,
 
-      103,  103,   89,  120,   68,   96,  104,  104,  119,  118,
-      117,  116,  115,  114,  113,  112,  111,  110,  109,  108,
-      107,   50,   39,   39,   41,   41,  106,  105,  102,  101,
-      100,   99,   98,   97,   94,   93,   92,   91,   70,   90,
+      104,  104,   90,   39,   68,   97,  105,  105,  121,  120,
+      119,  118,  117,  116,  115,  114,  113,  112,  111,  110,
+      109,   50,  108,  107,  106,   91,  103,  102,  101,  100,
+       99,   98,   95,   94,   93,   92,   71,   91,   70,   88,
        87,   86,   85,   84,   83,   82,   81,   80,   79,   78,
-       77,   76,   75,   74,   73,   70,   68,   42,   40,   67,
+       77,   76,   75,   74,   71,   70,   68,   42,   40,   67,
        66,   49,   48,   47,   44,   42,   40,  122,    3,  122,
       122,  122,  122,  122,  122,  122,  122,  122,  122,  122,
       122,  122,  122,  122,  122,  122,  122,  122,  122,  122,
@@ -418,14 +418,14 @@ static yyconst short int yy_chk[218] =
        46,  125,   46,   22,   28,   50,   30,   23,   26,   31,
        27,   24,   25,   24,   28,   25,   30,   27,   29,   47,
        47,   21,   31,   22,   23,   24,   25,   29,   26,   27,
-       77,   32,   31,  116,   28,   50,   30,   32,   68,   31,
+       78,   32,   31,  124,   28,   50,   30,   32,   68,   31,
 
-       89,  104,   68,  115,   68,   77,   89,  104,  114,  113,
-      112,  111,  110,  108,  102,  100,   99,   98,   97,   96,
-       95,   32,  123,  123,  124,  124,   92,   90,   86,   85,
-       84,   83,   81,   78,   76,   75,   74,   72,   70,   69,
-       65,   64,   63,   62,   61,   60,   59,   57,   56,   55,
-       54,   53,   52,   51,   49,   45,   43,   41,   39,   38,
+       90,  105,   68,  123,   68,   78,   90,  105,  116,  115,
+      114,  113,  112,  111,  110,  108,  103,  101,  100,   99,
+       98,   32,   97,   96,   93,   91,   87,   86,   85,   84,
+       82,   79,   77,   76,   75,   73,   71,   70,   69,   65,
+       64,   63,   62,   61,   60,   59,   57,   56,   55,   54,
+       53,   52,   51,   49,   45,   44,   43,   41,   39,   38,
        36,   19,   18,   17,   14,    8,    7,    3,  122,  122,
       122,  122,  122,  122,  122,  122,  122,  122,  122,  122,
       122,  122,  122,  122,  122,  122,  122,  122,  122,  122,
@@ -463,10 +463,11 @@ typedef struct
 }values;
 extern void yyerror(const char* s);
 extern void recherche (char entite[ ], char type [ ],char typeSynt[], values val, int y);
+int nbSausLigne(char ch[]);
 values val;
 int yylineo=1;
 int Col=1;
-#line 470 "lex.yy.c"
+#line 471 "lex.yy.c"
 
 /* Macros after this point can all be overridden by user definitions in
  * section 1.
@@ -617,9 +618,9 @@ YY_DECL
 	register char *yy_cp, *yy_bp;
 	register int yy_act;
 
-#line 37 "m.l"
+#line 39 "m.l"
 
-#line 623 "lex.yy.c"
+#line 624 "lex.yy.c"
 
 	if ( yy_init )
 		{
@@ -704,7 +705,7 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 38 "m.l"
+#line 40 "m.l"
 {
     Col = Col + strlen(yytext);
     recherche (yytext,"ACCOLADE_OUV","",val,2);
@@ -713,7 +714,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 43 "m.l"
+#line 45 "m.l"
 {
     Col = Col + strlen(yytext);
     recherche (yytext,"ACCOLADE_FER","",val,2);
@@ -722,7 +723,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 48 "m.l"
+#line 50 "m.l"
 {
     Col = Col + strlen(yytext);
     recherche (yytext,"SUPSTRICT","",val,2);
@@ -731,7 +732,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 53 "m.l"
+#line 55 "m.l"
 {
     Col = Col + strlen(yytext);
     recherche (yytext,"SUPEGAL","",val,2);
@@ -740,7 +741,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 58 "m.l"
+#line 60 "m.l"
 {
     Col = Col + strlen(yytext);
     recherche (yytext,"INFSTRICT","",val,2);
@@ -749,7 +750,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 63 "m.l"
+#line 65 "m.l"
 {
     Col = Col + strlen(yytext);
     recherche (yytext,"INFEGAL","",val,2);
@@ -758,7 +759,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 68 "m.l"
+#line 70 "m.l"
 {
     Col = Col + strlen(yytext);
     recherche (yytext,"EGAL","",val,2);
@@ -767,7 +768,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 73 "m.l"
+#line 75 "m.l"
 {
     Col = Col + strlen(yytext);
     recherche (yytext,"DIFF","",val,2);
@@ -776,7 +777,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 78 "m.l"
+#line 80 "m.l"
 {
     Col = Col + strlen(yytext);
     recherche (yytext,"DEUX POINT","",val,2);
@@ -785,7 +786,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 83 "m.l"
+#line 85 "m.l"
 {
     Col = Col + strlen(yytext);
     recherche (yytext,"AFFECTATION","",val,2);
@@ -794,7 +795,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 88 "m.l"
+#line 90 "m.l"
 {
     Col = Col + strlen(yytext);
     recherche (yytext,"ADD","",val,2);
@@ -803,7 +804,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 93 "m.l"
+#line 95 "m.l"
 {
     Col = Col + strlen(yytext);
     recherche (yytext,"SUB","",val,2);
@@ -812,7 +813,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 98 "m.l"
+#line 100 "m.l"
 {
     Col = Col + strlen(yytext);
     recherche (yytext,"MUL","",val,2);
@@ -821,7 +822,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 103 "m.l"
+#line 105 "m.l"
 {
     Col = Col + strlen(yytext);
     recherche (yytext,"DIV","",val,2);
@@ -830,7 +831,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 108 "m.l"
+#line 110 "m.l"
 {
     Col = Col + strlen(yytext);
     recherche (yytext,"CROCHET_OUV","",val,2);
@@ -839,7 +840,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 113 "m.l"
+#line 115 "m.l"
 {
     Col = Col + strlen(yytext);
     recherche (yytext,"CROCHET_FER","",val,2);
@@ -848,7 +849,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 118 "m.l"
+#line 120 "m.l"
 {
     Col = Col + strlen(yytext);
     recherche (yytext,"OU PIPE","",val,2);
@@ -857,7 +858,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 123 "m.l"
+#line 125 "m.l"
 {
     Col = Col + strlen(yytext);
     recherche (yytext,"PARENTHESE_OUV","",val,2);
@@ -866,7 +867,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 128 "m.l"
+#line 130 "m.l"
 {
     Col = Col + strlen(yytext);
     recherche (yytext,"PARENTHESE_FER","",val,2);
@@ -875,14 +876,15 @@ YY_RULE_SETUP
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 133 "m.l"
+#line 135 "m.l"
 {
     Col = Col + strlen(yytext);
+    yylineo+= nbSausLigne(yytext);
 }
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 136 "m.l"
+#line 139 "m.l"
 {
     Col = Col + strlen(yytext);
     recherche (yytext,"AROBASE","",val,2);
@@ -891,7 +893,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 141 "m.l"
+#line 144 "m.l"
 {
     Col = Col + strlen(yytext);
     recherche (yytext,"MOT-CLET","",val,1);
@@ -900,7 +902,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 146 "m.l"
+#line 149 "m.l"
 {
     Col = Col + strlen(yytext);
     recherche (yytext,"MOT-CLET","",val,1);
@@ -909,7 +911,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 151 "m.l"
+#line 154 "m.l"
 {
     Col = Col + strlen(yytext);
     recherche (yytext,"MOT-CLET","",val,1);
@@ -918,7 +920,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 156 "m.l"
+#line 159 "m.l"
 {
     Col = Col + strlen(yytext);
     recherche (yytext,"MOT-CLET","",val,1);
@@ -927,7 +929,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 161 "m.l"
+#line 164 "m.l"
 {
     Col = Col + strlen(yytext);
     recherche (yytext,"MOT-CLET","",val,1);
@@ -936,7 +938,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 166 "m.l"
+#line 169 "m.l"
 {
     Col = Col + strlen(yytext);
     recherche (yytext,"MOT-CLET","",val,1);
@@ -946,7 +948,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 172 "m.l"
+#line 175 "m.l"
 {
     Col = Col + strlen(yytext);
     recherche (yytext,"MOT-CLET","",val,1);
@@ -955,7 +957,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 177 "m.l"
+#line 180 "m.l"
 {
     Col = Col + strlen(yytext);
     recherche (yytext,"MOT-CLET","",val,1);
@@ -964,7 +966,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 182 "m.l"
+#line 185 "m.l"
 {
     Col = Col + strlen(yytext);
     recherche (yytext,"MOT-CLET","",val,1);
@@ -973,7 +975,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 187 "m.l"
+#line 190 "m.l"
 {
     Col = Col + strlen(yytext);
     recherche (yytext,"MOT-CLET","",val,1);
@@ -982,7 +984,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
-#line 192 "m.l"
+#line 195 "m.l"
 {
     Col = Col + strlen(yytext);
     recherche (yytext,"MOT-CLET","",val,1);
@@ -991,7 +993,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
-#line 197 "m.l"
+#line 200 "m.l"
 {
     Col = Col + strlen(yytext);
     recherche (yytext,"MOT-CLET","",val,1);
@@ -1000,7 +1002,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
-#line 202 "m.l"
+#line 205 "m.l"
 {
     Col = Col + strlen(yytext);
     recherche (yytext,"MOT-CLET","",val,1);
@@ -1009,7 +1011,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 35:
 YY_RULE_SETUP
-#line 207 "m.l"
+#line 210 "m.l"
 {
     Col = Col + strlen(yytext);
     if(yyleng<=8)
@@ -1023,7 +1025,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
-#line 217 "m.l"
+#line 220 "m.l"
 {
     Col = Col + strlen(yytext);
     if(yytext[0]=='(')
@@ -1047,7 +1049,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 37:
 YY_RULE_SETUP
-#line 237 "m.l"
+#line 240 "m.l"
 {
     Col = Col + strlen(yytext);
     if(yytext[0]=='(')
@@ -1079,7 +1081,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 38:
 YY_RULE_SETUP
-#line 265 "m.l"
+#line 268 "m.l"
 {
     Col = Col + strlen(yytext);
     yylval.cval = yytext[1];
@@ -1090,7 +1092,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 39:
 YY_RULE_SETUP
-#line 272 "m.l"
+#line 275 "m.l"
 {
     Col = Col + strlen(yytext);
     if(!strcmp(yytext,"\"$\""))
@@ -1126,7 +1128,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 40:
 YY_RULE_SETUP
-#line 304 "m.l"
+#line 307 "m.l"
 {
     Col = Col + strlen(yytext);
     recherche (yytext,"FINIST","",val,2);
@@ -1135,18 +1137,18 @@ YY_RULE_SETUP
 	YY_BREAK
 case 41:
 YY_RULE_SETUP
-#line 309 "m.l"
+#line 312 "m.l"
 {yylineo++;Col=1;
 }
 	YY_BREAK
 case 42:
 YY_RULE_SETUP
-#line 311 "m.l"
+#line 314 "m.l"
 ;
 	YY_BREAK
 case 43:
 YY_RULE_SETUP
-#line 312 "m.l"
+#line 315 "m.l"
 {
     Col = Col + strlen(yytext);
     recherche (yytext,"MOT-CLET","",val,1);
@@ -1156,7 +1158,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 44:
 YY_RULE_SETUP
-#line 318 "m.l"
+#line 321 "m.l"
 {
     Col = Col + strlen(yytext);
     recherche (yytext,"MOT-CLET","",val,1);
@@ -1166,7 +1168,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 45:
 YY_RULE_SETUP
-#line 324 "m.l"
+#line 327 "m.l"
 {
     Col = Col + strlen(yytext);
     recherche (yytext,"MOT-CLET","",val,1);
@@ -1176,7 +1178,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 46:
 YY_RULE_SETUP
-#line 330 "m.l"
+#line 333 "m.l"
 {
     Col = Col + strlen(yytext);
     recherche (yytext,"MOT-CLET","",val,1);
@@ -1186,18 +1188,18 @@ YY_RULE_SETUP
 	YY_BREAK
 case 47:
 YY_RULE_SETUP
-#line 336 "m.l"
+#line 339 "m.l"
 { 
     Col = Col + strlen(yytext);    
-    yyerror("lexecal");
+    yyerror("erreur lexecal");
 }
 	YY_BREAK
 case 48:
 YY_RULE_SETUP
-#line 340 "m.l"
+#line 343 "m.l"
 ECHO;
 	YY_BREAK
-#line 1201 "lex.yy.c"
+#line 1203 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -2083,4 +2085,16 @@ int main()
 	return 0;
 	}
 #endif
-#line 340 "m.l"
+#line 343 "m.l"
+
+int nbSausLigne(char ch[]){
+    int i,j,nb=0;
+    for (i = 0; i < strlen(ch); i++)
+    {
+        if (ch[i]=='\n')
+        {
+            nb++;
+        }
+    }
+    return nb;
+}

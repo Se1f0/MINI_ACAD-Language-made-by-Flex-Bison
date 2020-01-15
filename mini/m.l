@@ -32,6 +32,7 @@ PLUS "+"
 MOINS "-"
 MUL "*"
 DIV "/"
+doubleSlash "//"
 AFECTATION "="
 PARENTHES-OUV "("
 PARENTHES-FER ")" 
@@ -131,7 +132,7 @@ PARENTHES-FER ")"
     recherche (yytext,"PARENTHESE_FER","",val,2);
     return T_PARENTHESE_FER;
 }
-"//"[^//]+"//" {
+"//"([^/]|\/[^//])*\/+"/" {
     Col = Col + strlen(yytext);
     yylineo+= nbSausLigne(yytext);
 }
@@ -337,7 +338,7 @@ STRING {
 }
 . { 
     Col = Col + strlen(yytext);    
-    yyerror("lexecal");
+    yyerror("erreur lexecal");
 }
 %%
 int nbSausLigne(char ch[]){

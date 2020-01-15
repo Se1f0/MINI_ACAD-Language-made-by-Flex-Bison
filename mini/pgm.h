@@ -45,46 +45,12 @@ void ajour_quad(int num_quad, int colon_quad, char val [])
 
 void afficher_qdr()
 {
-    printf("*********************Les quadruplets***********************\n");
+    printf("\n************* Les quadruplets ***************\n");
     int i;
+    printf("\n _________________________________________\n");
     for(i=0;i<qc;i++)
     {
-        printf("\n %d - ( %s , %s , %s ,%s)",i,quad[i].oper,quad[i].op1,quad[i].op2,quad[i].res);
-        printf("\n---------------------------------------------------\n");
+        printf("\n|  - %d - ( %s , %s , %s ,%s )",i,quad[i].oper,quad[i].op1,quad[i].op2,quad[i].res);
+        printf("\n _________________________________________\n");
     }
-}
-void empilerCh(pileCh *p,int x)
-{
-    pileCh temp;
-    temp = malloc(sizeof(pileCh));
-    temp->val = x;
-    if(p==NULL)
-    {
-        temp->svt = NULL;
-        *p = temp;
-    }
-    else
-    {
-        temp->svt = *p;
-        *p = temp;
-    }
-    
-}
-int depilerCh(pileCh *p)
-{
-    if (*p!=NULL)
-    {
-        pileCh temp;
-        int x;
-        x = (*p)->val;
-        temp = *p;
-        *p=(*p)->svt;
-        free(temp);
-        return x;
-    }
-    else
-    {
-        return EXIT_FAILURE;
-    }
-    
 }
