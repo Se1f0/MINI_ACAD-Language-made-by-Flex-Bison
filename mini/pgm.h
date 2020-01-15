@@ -1,5 +1,6 @@
 #include<string.h>
 #include<stdio.h>
+
 typedef struct qdr
 {
     char oper[100];
@@ -7,6 +8,7 @@ typedef struct qdr
     char op2[100];
     char res[100];
 }qdr;
+
 typedef struct cellule *pileCh;
     typedef struct cellule
     {
@@ -15,6 +17,7 @@ typedef struct cellule *pileCh;
     }cellule;
 qdr quad[1000];
 extern int qc;
+
 void quadr(char opr[],char op1[],char op2[],char res[])
 {
     strcpy(quad[qc].oper , opr);
@@ -22,6 +25,7 @@ void quadr(char opr[],char op1[],char op2[],char res[])
     strcpy(quad[qc].op2 , op2);
     strcpy(quad[qc].res , res);
 }
+
 void ajour_quad(int num_quad, int colon_quad, char val [])
 {
     switch (colon_quad)
@@ -45,46 +49,12 @@ void ajour_quad(int num_quad, int colon_quad, char val [])
 
 void afficher_qdr()
 {
-    printf("*********************Les quadruplets***********************\n");
+    printf("\n************* Les quadruplets ***************\n");
     int i;
+    printf("\n _________________________________________\n");
     for(i=0;i<qc;i++)
     {
-        printf("\n %d - ( %s , %s , %s ,%s)",i,quad[i].oper,quad[i].op1,quad[i].op2,quad[i].res);
-        printf("\n---------------------------------------------------\n");
+        printf("\n|  - %d - ( %s , %s , %s ,%s )",i,quad[i].oper,quad[i].op1,quad[i].op2,quad[i].res);
+        printf("\n _________________________________________\n");
     }
-}
-void empilerCh(pileCh *p,int x)
-{
-    pileCh temp;
-    temp = malloc(sizeof(pileCh));
-    temp->val = x;
-    if(p==NULL)
-    {
-        temp->svt = NULL;
-        *p = temp;
-    }
-    else
-    {
-        temp->svt = *p;
-        *p = temp;
-    }
-    
-}
-int depilerCh(pileCh *p)
-{
-    if (*p!=NULL)
-    {
-        pileCh temp;
-        int x;
-        x = (*p)->val;
-        temp = *p;
-        *p=(*p)->svt;
-        free(temp);
-        return x;
-    }
-    else
-    {
-        return EXIT_FAILURE;
-    }
-    
 }
